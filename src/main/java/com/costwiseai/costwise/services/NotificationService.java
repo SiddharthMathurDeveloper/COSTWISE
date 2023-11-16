@@ -22,22 +22,25 @@ public class NotificationService {
         return  users;
     }
 
-    public Optional<User> setUserActive(int id){
+    public Boolean setUserActive(int id){
         Optional<User> optionalEntity =  userRepository.findById(id);
         User entity = optionalEntity.get();
         LocalDateTime currentDateTime = LocalDateTime.now();
         Date currentDate = Date.from(currentDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant());
-        if (optionalEntity.isPresent()) {
-
-        } else {
-
             entity.setLoggedIn(true); // Set the new field value
-            entity.setCreatedAt(currentDate);
-            return Optional.ofNullable(userRepository.save(entity)); // Save the updated entity
-        }
+            entity.setUpdatedAt(currentDate);
+            userRepository.save(entity);
+        return true;
+    }
 
-
-
-        return optionalEntity;
+     public Boolean setUserDeactivate(int id){
+        Optional<User> optionalEntity =  userRepository.findById(id);
+        User entity = optionalEntity.get();
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Date currentDate = Date.from(currentDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant());
+            entity.setLoggedIn(false); // Set the new field value
+            entity.setUpdatedAt(currentDate);
+            userRepository.save(entity);
+        return true;
     }
 }

@@ -2,6 +2,7 @@ package com.costwiseai.costwise.controllers;
 
 
 import com.costwiseai.costwise.services.NotificationService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,9 @@ public class NotificationController {
 
     @Autowired
     NotificationService notificationService;
+    
+
+
     @GetMapping("/send-notification")
     public String sendNotification() {
         System.out.println(notificationService.allUser());
@@ -35,4 +39,9 @@ public class NotificationController {
         notificationService.setUserDeactivate(userId);
         return ResponseEntity.ok("User with ID " + userId + " deactivated successfully");
     }
+
+
+   
+
+    
 }
